@@ -1,5 +1,20 @@
 ---
+resource_types:
+- name: twitter
+  type: docker-image
+  source:
+    repository: ecsteam/twitter-concourse-resource
+
 resources:
+
+- name: tweet
+  type: twitter
+  source:
+    consumer_key: {{twitter-consumer-key}}
+    consumer_secret: {{twitter-consumer-secret}}
+    access_token: {{twitter-access-token}}
+    access_token_secret: {{twitter-access-token-secret}}
+
 - name: pal-tracker
   type: git
   source:
@@ -81,3 +96,13 @@ jobs:
       path: pal-tracker-artifacts/pal-tracker-*.jar
       environment_variables:
         WELCOME_MESSAGE: "Hello from the production environment"
+
+- name: do-tweet
+  plan:
+  - get: production-deployment
+    trigger: true
+    passed: [deploy-production]
+  - put: tweet
+    params:
+      status: >
+        I deployed my first #springboot app to #PCF using #concourse during #PAL #Boulder-Report by Concourse twitter job.
