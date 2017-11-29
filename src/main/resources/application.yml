@@ -1,4 +1,5 @@
-datasource:
+spring:
+  datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/tracker_dev
     username: tracker
@@ -6,7 +7,6 @@ datasource:
     # Keep the connection alive if idle for a long time (needed in production)
     #testWhileIdle:  true
     #validationQuery : SELECT 1
-
 flyway:
   enabled: true
 
