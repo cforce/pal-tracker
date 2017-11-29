@@ -8,14 +8,14 @@ public class TimeEntry {
         //default constructor for test
     }
 
-    public TimeEntry(int projectId, long userId, LocalDate date, int hours) {
+    public TimeEntry(long projectId, long userId, LocalDate date, int hours) {
         this.setDate(date);
         this.setHours(hours);
         this.setUserId(userId);
         this.setProjectId(projectId);
     }
 
-    public TimeEntry(long id, int projectId, int userId, LocalDate date, int hours) {
+    public TimeEntry(long id, long projectId, long userId, LocalDate date, int hours) {
         this.setDate(date);
         this.setHours(hours);
         this.setId(id);
@@ -83,7 +83,7 @@ public class TimeEntry {
         result = 31 * result + (int) (projectId ^ (projectId >>> 32));
         result = 31 * result + (int) (userId ^ (userId >>> 32));
         result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + hours;
+        result = 31 * result + (int) hours;
         return result;
     }
 

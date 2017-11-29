@@ -15,6 +15,7 @@ dependencies {
     compile("mysql:mysql-connector-java:6.0.6")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     runtime("javax.xml.bind:jaxb-api:2.3.0")
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 repositories {
