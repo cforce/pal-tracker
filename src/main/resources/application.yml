@@ -13,6 +13,13 @@ endpoints:
     sensitive: false # Mark if the endpoint exposes sensitive information.
   sensitive: false
   info.sensitive: false
+
+security:
+  enable-csrf: false
+  user:
+    name: user
+    password: password
+    role: role
 management:
   security.enabled: false
   health:

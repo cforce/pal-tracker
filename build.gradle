@@ -24,6 +24,7 @@ dependencies {
     compile "org.springframework.cloud:spring-cloud-spring-service-connector:1.2.4.RELEASE"
     compile "org.springframework.cloud:spring-cloud-cloudfoundry-connector:1.2.4.RELEASE"
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-security")
 }
 repositories {
     mavenCentral()
