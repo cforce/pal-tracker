@@ -7,6 +7,24 @@ spring:
     # Keep the connection alive if idle for a long time (needed in production)
     #testWhileIdle:  true
     #validationQuery : SELECT 1
+
+endpoints:
+  health:
+    sensitive: false # Mark if the endpoint exposes sensitive information.
+  sensitive: false
+  info.sensitive: false
+management:
+  security.enabled: false
+  health:
+    db.enabled: true # Enable database health check.
+  defaults:
+    enabled: true # Enable default health indicators.
+  diskspace:
+    enabled: true # Enable disk space health check.
+
 flyway:
   enabled: true
+
+
+
 

@@ -6,5 +6,7 @@ applications:
   memory: 1G
   instances: 2
   host: fw-pal-tracker
+  env:
+     SPRING_PROFILES_ACTIVE: cloud
   services:
     - tracker-database

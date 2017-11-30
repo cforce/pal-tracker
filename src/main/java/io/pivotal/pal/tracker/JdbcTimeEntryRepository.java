@@ -75,6 +75,12 @@ public class JdbcTimeEntryRepository implements TimeEntryRepository {
         jdbcTemplate.update("DELETE FROM time_entries WHERE id = ?", id);
     }
 
+    @Override
+    public long count() {
+        return this.jdbcTemplate.getMaxRows();
+
+    }
+
     private final RowMapper<TimeEntry> mapper = (rs, rowNum) -> new TimeEntry(
             rs.getLong("id"),
             rs.getLong("project_id"),

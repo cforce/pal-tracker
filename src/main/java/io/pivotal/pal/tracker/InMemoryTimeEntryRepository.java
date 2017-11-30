@@ -38,4 +38,9 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository{
     public void delete(Long id) {
         timeEntries.remove(id);
     }
+
+    @Override
+    public long count() {
+        return this.timeEntries.size();
+    }
 }

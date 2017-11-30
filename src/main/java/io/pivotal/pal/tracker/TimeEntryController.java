@@ -1,5 +1,7 @@
 package io.pivotal.pal.tracker;
 
+import org.springframework.boot.actuate.metrics.CounterService;
+import org.springframework.boot.actuate.metrics.GaugeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
@@ -14,15 +16,24 @@ public class TimeEntryController {
 
 
     TimeEntryRepository timeEntryRepository;
+    private final CounterService counter;
+    private final GaugeService gauge;
 
-    public TimeEntryController(TimeEntryRepository timeEntryRepository) {
+    public TimeEntryController(TimeEntryRepository timeEntryRepository,
+                               CounterService counter,
+                               GaugeService gauge) {
         this.timeEntryRepository=timeEntryRepository;
+        this.counter = counter;
+        this.gauge = gauge;
     }
 
 
     @PostMapping
     public ResponseEntity<TimeEntry> create(@RequestBody TimeEntry timeEntry) {
         timeEntry = timeEntryRepository.create(timeEntry);
+
+        counter.increment("TimeEntry.created");
+        gauge.submit("timeEntries.count", timeEntryRepository.list().size());
         return new ResponseEntity<TimeEntry>(timeEntry, HttpStatus.CREATED);
     }
 
@@ -43,6 +54,8 @@ public class TimeEntryController {
     @DeleteMapping("{id}")
     public ResponseEntity<TimeEntry> delete(@PathVariable Long id) {
         timeEntryRepository.delete(id);
+        counter.increment("TimeEntry.deleted");
+        gauge.submit("timeEntries.count", timeEntryRepository.list().size());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -51,6 +64,8 @@ public class TimeEntryController {
         TimeEntry te = timeEntryRepository.update(id,timeEntry );
         if (te==null)
             return new ResponseEntity<>(te,HttpStatus.NOT_FOUND);
+
+        counter.increment("TimeEntry.updated");
         return new ResponseEntity<>(te,HttpStatus.OK);
     }
 
