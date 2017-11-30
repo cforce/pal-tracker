@@ -19,7 +19,7 @@ security:
   user:
     name: user
     password: password
-    role: role
+    role: USER
 management:
   security.enabled: false
   health:
